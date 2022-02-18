@@ -10,9 +10,8 @@ namespace TodoApi.Models
         [Key]
         public int Id { get; set; }
         public string? Name { get; set; }
-        // [JsonIgnore]
 
-        // public ICollection<TodoItem> TodoItems { get; set; }
+        // public virtual ICollection<TodoItem> TodoItems { get; set; }
     
     }
 }

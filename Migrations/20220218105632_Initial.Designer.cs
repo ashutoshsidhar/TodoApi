@@ -12,8 +12,8 @@ using TodoApi.Models;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    [Migration("20220218080156_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220218105632_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,9 @@ namespace TodoApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("BoardId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -60,25 +63,22 @@ namespace TodoApi.Migrations
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("bid")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("bid");
+                    b.HasIndex("BoardId");
 
                     b.ToTable("TodoItems");
                 });
 
             modelBuilder.Entity("TodoApi.Models.TodoItem", b =>
                 {
-                    b.HasOne("TodoApi.Models.Board", "Boards")
+                    b.HasOne("TodoApi.Models.Board", "Board")
                         .WithMany()
-                        .HasForeignKey("bid")
+                        .HasForeignKey("BoardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Boards");
+                    b.Navigation("Board");
                 });
 #pragma warning restore 612, 618
         }
